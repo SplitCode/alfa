@@ -1,11 +1,11 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import ProductsList from '../components/ProductsList';
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Navigate to="/products" replace />,
+      element: <ProductsList />,
     },
     {
       path: 'products',

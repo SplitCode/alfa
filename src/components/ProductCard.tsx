@@ -21,8 +21,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '8px' }}
     >
       <div onClick={handleCardClick} style={{ cursor: 'pointer' }}>
-        <h3>{product.title}</h3>
-        <p>{product.description.slice(0, 100)}...</p>
+        <h3>{product.title.slice(0, 10)}...</h3>
+        <p>{product.body.slice(0, 100)}...</p>
       </div>
       <div>
         <button
