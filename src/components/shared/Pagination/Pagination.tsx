@@ -1,4 +1,5 @@
 import React from 'react';
+import './Pagination.css';
 
 interface PaginationProps {
   currentPage: number;
@@ -16,12 +17,14 @@ const Pagination: React.FC<PaginationProps> = ({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
-    <div>
+    <div className="pagination-container">
       {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          style={{ fontWeight: currentPage === page ? 'bold' : 'normal' }}
+          className={`pagination-button ${
+            currentPage === page ? 'active' : ''
+          }`}
         >
           {page}
         </button>
