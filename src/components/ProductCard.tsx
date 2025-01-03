@@ -28,6 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           style={{ width: '150px', height: '150px' }}
         />
         <p>Category: {product.category}</p>
+        <p>{product.description.slice(0, 35)}...</p>
       </div>
       <div>
         <button

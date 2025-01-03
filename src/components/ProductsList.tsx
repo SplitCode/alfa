@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   fetchProducts,
   selectCombinedProducts,
@@ -13,6 +14,7 @@ import Pagination from './Pagination';
 const ProductsList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector(selectCombinedProducts);
+  const navigate = useNavigate();
 
   const [showFavorites, setShowFavorites] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,6 +41,10 @@ const ProductsList: React.FC = () => {
         placeholder="Search products..."
         onChange={(e) => dispatch(setSearchQuery(e.target.value))}
       />
+
+      <button onClick={() => navigate('/create-product')}>
+        ➕ Create Product
+      </button>
 
       <button onClick={() => setShowFavorites(!showFavorites)}>
         {showFavorites ? 'Show All' : 'Show Favorites'}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../store/productsSlice';
 import { useNavigate } from 'react-router-dom';
+import './ProductForm.css';
 
 const ProductForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,33 +25,44 @@ const ProductForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Create Product</h1>
-      <input
-        type="text"
-        placeholder="Title"
-        value={form.title}
-        onChange={(e) => setForm({ ...form, title: e.target.value })}
-      />
-      <input
-        type="url"
-        placeholder="Image URL"
-        value={form.image}
-        onChange={(e) => setForm({ ...form, image: e.target.value })}
-      />
-      <textarea
-        placeholder="Description"
-        value={form.description}
-        onChange={(e) => setForm({ ...form, description: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Category"
-        value={form.category}
-        onChange={(e) => setForm({ ...form, category: e.target.value })}
-      />
-      <button type="submit">Create</button>
-    </form>
+    <div className="form-container">
+      <button className="back-button" onClick={() => navigate('/products')}>
+        ⬅ Back to Products
+      </button>
+      <form className="product-form" onSubmit={handleSubmit}>
+        <h1>Create Product</h1>
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Title"
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+        />
+        <input
+          className="form-input"
+          type="url"
+          placeholder="Image URL"
+          value={form.image}
+          onChange={(e) => setForm({ ...form, image: e.target.value })}
+        />
+        <textarea
+          className="form-textarea"
+          placeholder="Description"
+          value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
+        />
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Category"
+          value={form.category}
+          onChange={(e) => setForm({ ...form, category: e.target.value })}
+        />
+        <button className="submit-button" type="submit">
+          Create
+        </button>
+      </form>
+    </div>
   );
 };
 
