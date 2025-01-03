@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchProducts,
-  toggleLike,
-  removeProduct,
   selectFilteredProducts,
   setSearchQuery,
   // selectProducts,
   // selectFavorites,
 } from '../store/productsSlice';
-import { AppDispatch, RootState } from '../store/store';
+import { AppDispatch } from '../store/store';
 import ProductCard from './ProductCard';
-// import Pagination
+import Pagination from './Pagination';
 
 const ProductsList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -47,11 +45,18 @@ const ProductsList: React.FC = () => {
       <button onClick={() => setShowFavorites(!showFavorites)}>
         {showFavorites ? 'Show All' : 'Show Favorites'}
       </button>
+
       <div style={{ display: 'grid', gap: '10px' }}>
-        {displayedProducts.map((product) => (
+        {paginatedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalItems={displayedProducts.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
