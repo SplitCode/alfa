@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleLike, removeProduct } from '../store/productsSlice';
+import { toggleLike, removeProduct } from '../../store/productsSlice';
 import { useNavigate } from 'react-router-dom';
-import { Product } from '../store/productsSlice';
+import { Product } from '../../store/productsSlice';
 
 interface ProductCardProps {
   product: Product;

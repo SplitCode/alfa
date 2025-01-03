@@ -6,10 +6,10 @@ import {
   selectCombinedProducts,
   // selectFilteredProducts,
   setSearchQuery,
-} from '../store/productsSlice';
-import { AppDispatch } from '../store/store';
-import ProductCard from './ProductCard';
-import Pagination from './Pagination';
+} from '../../store/productsSlice';
+import { AppDispatch } from '../../store/store';
+import ProductCard from '../productCard/ProductCard';
+import Pagination from '../shared/Pagination/Pagination';
 
 const ProductsList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

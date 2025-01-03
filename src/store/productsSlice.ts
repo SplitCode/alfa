@@ -60,12 +60,7 @@ const productsSlice = createSlice({
     // },
 
     addProduct(state, action: PayloadAction<Product>) {
-      const newProduct = {
-        ...action.payload,
-        id: Date.now(),
-        liked: false,
-      };
-      state.localProducts.push(newProduct);
+      state.localProducts.push(action.payload);
     },
 
     setSearchQuery(state, action: PayloadAction<string>) {
@@ -78,10 +73,6 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
       })
-      // .addCase(fetchProducts.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.products = action.payload;
-      // })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload.map((product: Product) => ({
