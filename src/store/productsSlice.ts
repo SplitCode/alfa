@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 import axios from 'axios';
 
 export interface Product {
@@ -54,11 +55,6 @@ const productsSlice = createSlice({
       state.products = state.products.filter((p) => p.id !== action.payload);
     },
 
-    // editProduct(state, action: PayloadAction<Product>) {
-    //   const index = state.products.findIndex((p) => p.id === action.payload.id);
-    //   if (index !== -1) state.products[index] = action.payload;
-    // },
-
     addProduct(state, action: PayloadAction<Product>) {
       state.localProducts.push(action.payload);
     },
@@ -86,24 +82,29 @@ const productsSlice = createSlice({
   },
 });
 
-export const selectFilteredProducts = (state: { products: ProductsState }) => {
-  const { products, searchQuery } = state.products;
-  return products.filter((p) =>
-    p.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-};
+const selectLocalProducts = (state: { products: ProductsState }) =>
+  state.products.localProducts;
 
-export const selectCombinedProducts = (state: { products: ProductsState }) => [
-  ...state.products.localProducts,
-  ...state.products.products,
-];
+const selectProducts = (state: { products: ProductsState }) =>
+  state.products.products;
 
-export const {
-  toggleLike,
-  removeProduct,
-  addProduct,
-  // editProduct,
-  setSearchQuery,
-} = productsSlice.actions;
+export const selectCombinedProducts = createSelector(
+  [selectLocalProducts, selectProducts],
+  (localProducts, products) => [...localProducts, ...products]
+);
+
+export const selectFilteredProducts = createSelector(
+  [
+    selectCombinedProducts,
+    (state: { products: ProductsState }) => state.products.searchQuery,
+  ],
+  (combinedProducts, searchQuery) =>
+    combinedProducts.filter((p) =>
+      p.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+);
+
+export const { toggleLike, removeProduct, addProduct, setSearchQuery } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

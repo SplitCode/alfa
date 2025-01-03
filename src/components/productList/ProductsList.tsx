@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   fetchProducts,
-  selectCombinedProducts,
+  selectFilteredProducts,
   setSearchQuery,
 } from '../../store/productsSlice';
 import { AppDispatch } from '../../store/store';
@@ -13,7 +13,7 @@ import './ProductsList.css';
 
 const ProductsList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const products = useSelector(selectCombinedProducts);
+  const products = useSelector(selectFilteredProducts);
   const navigate = useNavigate();
 
   const [showFavorites, setShowFavorites] = useState(false);
