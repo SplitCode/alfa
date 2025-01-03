@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
 import BackButton from '../shared/BackButton/BackButton';
-import { selectCombinedProducts } from '../../store/productsSlice';
+import {
+  fetchProducts,
+  selectCombinedProducts,
+} from '../../store/productsSlice';
+import { AppDispatch } from '../../store/store';
 import './ProductDetail.css';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const product = useSelector((state: RootState) =>
-    selectCombinedProducts(state).find(
-      (product) => product.id === parseInt(id || '', 10)
-    )
-  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  const products = useSelector(selectCombinedProducts);
+  const product = products.find((product) => product.id === Number(id));
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   if (!product) {
     return <div className="product-not-found">Product not found</div>;
