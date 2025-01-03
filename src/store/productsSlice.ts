@@ -14,12 +14,14 @@ interface ProductsState {
   products: Product[];
   favorites: Product[];
   loading: boolean;
+  searchQuery: string;
 }
 
 const initialState: ProductsState = {
   products: [],
   favorites: [],
   loading: false,
+  searchQuery: '',
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -45,8 +47,17 @@ const productsSlice = createSlice({
       state.products = state.products.filter((p) => p.id !== action.payload);
     },
 
+    // editProduct(state, action: PayloadAction<Product>) {
+    //   const index = state.products.findIndex((p) => p.id === action.payload.id);
+    //   if (index !== -1) state.products[index] = action.payload;
+    // },
+
     addProduct(state, action: PayloadAction<Product>) {
       state.products.push({ ...action.payload, liked: false });
+    },
+
+    setSearchQuery(state, action: PayloadAction<string>) {
+      state.searchQuery = action.payload;
     },
   },
 
@@ -55,9 +66,16 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
       })
+      // .addCase(fetchProducts.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.products = action.payload;
+      // })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.products = action.payload.map((product: Product) => ({
+          ...product,
+          liked: false,
+        }));
       })
       .addCase(fetchProducts.rejected, (state) => {
         state.loading = false;
@@ -65,19 +83,25 @@ const productsSlice = createSlice({
   },
 });
 
-export const selectProducts = (state: { products: ProductsState }) =>
-  state.products.products;
+// export const selectProducts = (state: { products: ProductsState }) =>
+//   state.products.products;
 
-export const selectFavorites = (state: { products: ProductsState }) =>
-  state.products.products.filter((product) => product.liked);
+// export const selectFavorites = (state: { products: ProductsState }) =>
+//   state.products.products.filter((product) => product.liked);
 
-export const selectFilteredProducts = (
-  state: { products: ProductsState },
-  search: string
-) =>
-  state.products.products.filter((product) =>
-    product.title.toLowerCase().includes(search.toLowerCase())
+export const selectFilteredProducts = (state: { products: ProductsState }) => {
+  const { products, searchQuery } = state.products;
+  return products.filter((p) =>
+    p.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+};
 
-export const { toggleLike, removeProduct, addProduct } = productsSlice.actions;
+export const {
+  toggleLike,
+  removeProduct,
+  addProduct,
+  // editProduct,
+  setSearchQuery,
+} = productsSlice.actions;
+
 export default productsSlice.reducer;
