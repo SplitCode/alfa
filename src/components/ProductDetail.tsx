@@ -7,7 +7,7 @@ const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const product = useSelector((state: RootState) =>
-    state.products.products.find(
+    [...state.products.localProducts, ...state.products.products].find(
       (product) => product.id === parseInt(id || '', 10)
     )
   );

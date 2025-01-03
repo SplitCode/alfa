@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import ProductsList from '../components/ProductsList';
 import ProductDetail from '../components/ProductDetail';
+import ProductForm from '../components/ProductForm';
 
 export const router = createBrowserRouter(
   [
@@ -16,10 +17,10 @@ export const router = createBrowserRouter(
       path: 'products/:id',
       element: <ProductDetail />,
     },
-    // {
-    //   path: 'create-product',
-    //   element: <ProductForm />,
-    // },
+    {
+      path: 'create-product',
+      element: <ProductForm />,
+    },
   ],
   { future: { v7_startTransition: true } }
 );

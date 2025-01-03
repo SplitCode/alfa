@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchProducts,
-  selectFilteredProducts,
+  selectCombinedProducts,
+  // selectFilteredProducts,
   setSearchQuery,
-  // selectProducts,
-  // selectFavorites,
 } from '../store/productsSlice';
 import { AppDispatch } from '../store/store';
 import ProductCard from './ProductCard';
@@ -13,9 +12,8 @@ import Pagination from './Pagination';
 
 const ProductsList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const products = useSelector(selectFilteredProducts);
-  // const favorites = useSelector((state: RootState) => state.products.favorites);
-  // const products = useSelector((state: RootState) => state.products.products);
+  const products = useSelector(selectCombinedProducts);
+
   const [showFavorites, setShowFavorites] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;

@@ -12,6 +12,7 @@ export interface Product {
 
 interface ProductsState {
   products: Product[];
+  localProducts: Product[];
   favorites: Product[];
   loading: boolean;
   searchQuery: string;
@@ -19,6 +20,7 @@ interface ProductsState {
 
 const initialState: ProductsState = {
   products: [],
+  localProducts: [],
   favorites: [],
   loading: false,
   searchQuery: '',
@@ -37,13 +39,18 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     toggleLike(state, action: PayloadAction<number>) {
-      const product = state.products.find((p) => p.id === action.payload);
+      const product = [...state.localProducts, ...state.products].find(
+        (p) => p.id === action.payload
+      );
       if (product) {
         product.liked = !product.liked;
       }
     },
 
     removeProduct(state, action: PayloadAction<number>) {
+      state.localProducts = state.localProducts.filter(
+        (p) => p.id !== action.payload
+      );
       state.products = state.products.filter((p) => p.id !== action.payload);
     },
 
@@ -53,7 +60,12 @@ const productsSlice = createSlice({
     // },
 
     addProduct(state, action: PayloadAction<Product>) {
-      state.products.push({ ...action.payload, liked: false });
+      const newProduct = {
+        ...action.payload,
+        id: Date.now(),
+        liked: false,
+      };
+      state.localProducts.push(newProduct);
     },
 
     setSearchQuery(state, action: PayloadAction<string>) {
@@ -83,18 +95,17 @@ const productsSlice = createSlice({
   },
 });
 
-// export const selectProducts = (state: { products: ProductsState }) =>
-//   state.products.products;
-
-// export const selectFavorites = (state: { products: ProductsState }) =>
-//   state.products.products.filter((product) => product.liked);
-
 export const selectFilteredProducts = (state: { products: ProductsState }) => {
   const { products, searchQuery } = state.products;
   return products.filter((p) =>
     p.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 };
+
+export const selectCombinedProducts = (state: { products: ProductsState }) => [
+  ...state.products.localProducts,
+  ...state.products.products,
+];
 
 export const {
   toggleLike,
