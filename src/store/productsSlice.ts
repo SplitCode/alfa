@@ -4,8 +4,8 @@ import axios from 'axios';
 export interface Product {
   id: number;
   title: string;
-  body: string;
-  // image: string;
+  image: string;
+  description: string;
   liked?: boolean;
 }
 
@@ -24,9 +24,7 @@ const initialState: ProductsState = {
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
-    const response = await axios.get(
-      'https://jsonplaceholder.typicode.com/posts'
-    );
+    const response = await axios.get('https://fakestoreapi.com/products');
     return response.data;
   }
 );
