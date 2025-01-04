@@ -32,6 +32,10 @@ const ProductsList: React.FC = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [showFavorites]);
+
   return (
     <div className="products-list">
       <h2>Products</h2>
