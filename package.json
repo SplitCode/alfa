@@ -2,6 +2,8 @@
   "name": "alfa",
   "version": "0.1.0",
   "private": true,
+  "author": "Natalia Bandurova",
+  "homepage": "https://splitCode.github.io/alfa",
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -30,6 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
