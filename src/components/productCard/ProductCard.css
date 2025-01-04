@@ -33,8 +33,11 @@
 
 .product-card-description {
   font-size: 0.875rem;
-  overflow: hidden;
   color: var(--text-color);
+  align-self: self-start;
+  white-space: normal;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 .product-card-actions {

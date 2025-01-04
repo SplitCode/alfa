@@ -28,15 +28,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card" onClick={handleCardClick}>
       <div className="product-card-body">
-        <h3>{product.title.slice(0, 20)}...</h3>
+        <h3>
+          {product.title.length > 20
+            ? product.title.slice(0, 20) + '...'
+            : product.title}
+        </h3>
         <img
           src={product.image}
           alt={product.title}
           className="product-card-image"
         />
-        <p className="product-card-category">Category: {product.category}</p>
+        <p className="product-card-category">
+          Category:
+          {product.category.length > 20
+            ? product.category.slice(0, 20) + '...'
+            : product.category}
+        </p>
         <p className="product-card-description">
-          {product.description.slice(0, 50)}...
+          {product.description.length > 50
+            ? product.description.slice(0, 50) + '...'
+            : product.description}
         </p>
       </div>
       <div className="product-card-actions">
