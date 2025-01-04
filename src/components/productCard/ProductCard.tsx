@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toggleLike, removeProduct } from '../../store/productsSlice';
 import { Product } from '../../store/productsSlice';
+import { AiFillHeart, AiOutlineHeart, AiOutlineClose } from 'react-icons/ai';
 import './ProductCard.css';
 interface ProductCardProps {
   product: Product;
@@ -39,14 +40,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
       </div>
       <div className="product-card-actions">
-        <button
-          onClick={handleLike}
-          className={`product-card-like ${product.liked ? 'liked' : ''}`}
-        >
-          ❤️
+        <button onClick={handleLike} className="product-card-like">
+          {product.liked ? (
+            <AiFillHeart color="red" size={24} />
+          ) : (
+            <AiOutlineHeart color="black" size={24} />
+          )}
         </button>
         <button onClick={handleRemove} className="product-card-remove">
-          ❌
+          <AiOutlineClose color="red" size={24} />
         </button>
       </div>
     </div>

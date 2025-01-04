@@ -1,12 +1,11 @@
 .product-card {
-  box-shadow: var(--box-shadow);
-  padding: 10px;
-  border-radius: 8px;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  /* height: 320px; */
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+  box-shadow: var(--box-shadow);
 }
 
 .product-card:hover {
@@ -14,7 +13,6 @@
 }
 
 .product-card-body {
-  /* flex-grow: 1; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,53 +20,34 @@
 }
 
 .product-card-image {
-  width: 150px;
-  height: 150px;
+  width: 9.375rem;
+  height: 9.375rem;
   object-fit: contain;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .product-card-category {
-  font-size: 14px;
-  color: #666;
+  font-size: 0.875rem;
   align-self: self-start;
 }
 
 .product-card-description {
-  font-size: 14px;
-  color: #333;
+  font-size: 0.875rem;
   overflow: hidden;
+  color: var(--text-color);
 }
 
 .product-card-actions {
   display: flex;
-  /* justify-content: space-between; */
-  margin-top: 10px;
-  gap: 1rem;
   align-self: flex-start;
+  margin-top: 0.625rem;
+  gap: 1rem;
 }
 
-.product-card-like,
-.product-card-remove {
+.product-card-remove,
+.product-card-like {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 1.125rem;
   cursor: pointer;
-}
-
-.product-card-like {
-  color: black;
-}
-
-.product-card-like.liked {
-  color: red;
-}
-
-.product-card-remove {
-  color: black;
-}
-
-.product-card-remove:hover,
-.product-card-like:hover {
-  color: red;
 }

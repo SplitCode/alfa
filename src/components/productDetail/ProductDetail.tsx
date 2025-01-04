@@ -27,16 +27,20 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="product-detail">
       <BackButton to="/products" />
-      <div className="product-card">
+      <div className="product-detail-card">
         <img
-          className="product-card__image"
+          className="product-detail-card__image"
           src={product.image}
           alt={product.title}
         />
-        <div className="product-card__info">
-          <h1 className="product-card__title">{product.title}</h1>
-          <p className="product-card__description">{product.description}</p>
-          <p className="product-card__category">Category: {product.category}</p>
+        <div className="product-detail-card__info">
+          <h1 className="product-detail-card__title">{product.title}</h1>
+          <p className="product-detail-card__description">
+            {product.description}
+          </p>
+          <p className="product-detail-card__category">
+            Category: {product.category}
+          </p>
         </div>
       </div>
     </div>
